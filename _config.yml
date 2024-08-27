@@ -14,9 +14,9 @@ timezone: Europe/Madrid
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Bypasseados # the main title
+title: Cristian Rebollo # the main title
+tagline: "Splunk Enterprise Certified Admin" # it will display as the sub-title
 
-tagline: Blog personal de Cristian Rebollo Castillo # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   Blog personal de Cristian Rebollo Castillo. Artículos sobre la solución de Splunk y mas soluciones relativas a integraciones de fuentes en SIEM.
@@ -29,13 +29,13 @@ github:
   username: rekkatz # change to your github username
 
 twitter:
-  username: twitter_username # change to your twitter username
+  username: rekkatz # change to your twitter username
 
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
   name: Cristian Rebollo Castillo
-  email: example@domain.com # change to your email address
+  #email: example@domain.com # change to your email address
   links:
     # The first element serves as the copyright owner's link
     # - https://twitter.com/username # change to your twitter homepage
@@ -96,7 +96,7 @@ theme_mode: # [light | dark]
 cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar:
+avatar: /assets/img/avatars/avatar.jpeg 
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
 # It can be overridden by a customized `page.image` in front matter.
