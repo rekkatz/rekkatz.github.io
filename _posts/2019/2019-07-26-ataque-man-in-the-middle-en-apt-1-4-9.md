@@ -1,8 +1,8 @@
 ---
 title: "Ataque Man in the Middle en APT &lt; 1.4.9"
 date: "2019-07-26"
-categories: [Red-Team]
-tags: [Debian,Hacking,Vulnerabilidad]
+categories: [Hacking]
+tags: [Debian,Red-Team,Vulnerabilidad]
 published: true
 media_subpath: /assets/img/posts/2019-07-26-ataque-man-in-the-middle-en-apt-1-4-9/
 image:
