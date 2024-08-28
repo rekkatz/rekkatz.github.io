@@ -1,5 +1,5 @@
 ---
-title: "Ataque Man in the Middle en APT < 1.4.9"
+title: "Ataque Man in the Middle en APT &lt; 1.4.9"
 date: "2019-07-26"
 categories: [Red-Team]
 tags: [Debian,Hacking,Vulnerabilidad]
