@@ -12,7 +12,7 @@
 
 - type: linkedin
   icon: 'fab fa-linkedin'   # icons powered by <https://fontawesome.com/>
-  url:  'https:/linkedin.com/in/cristianrebollocastillo'                  # Fill with your Linkedin homepage
+  url:  'https://linkedin.com/in/cristianrebollocastillo'                  # Fill with your Linkedin homepage
 
 - type: rss
   icon: "fas fa-rss"
