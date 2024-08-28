@@ -195,7 +195,7 @@ Aquí abajo os dejo unas cuantas herramientas para la recopilación de informaci
 - [_DNSdumpster_](https://dnsdumpster.com/)
 - [_Shodan_](https://www.shodan.io/search?query=)
 - [_HatCloud_](https://github.com/HatBashBR/HatCloud)
-- [_CrimeFlare_](http://www.crimeflare.org:82/cfs.html)
+- [_CloudPeler_](https://github.com/zidansec/CloudPeler) (_Nueva versión de Crimeflare_)
 - [_CloudFail_](https://github.com/m0rtem/CloudFail)
 - [_CloudIP_](https://github.com/Top-Hat-Sec/thsosrtl/blob/master/CloudIP/cloudip.sh)
 
