@@ -2,36 +2,30 @@
 title: "Colector de eventos McAfee Mvision ePO"
 date: "2020-06-02"
 categories: 
-  - "blue-team"
 tags: 
-  - "blueteam"
-  - "cloud"
-  - "coletor-epo"
-  - "epo"
-  - "integracion"
-  - "mcafee-epo"
-  - "mvision"
-  - "mvision-epo-cloud"
-  - "script"
-  - "tool"
-coverImage: "script_mvision.png"
+media_subpath: /assets/img/posts/2020-06-02-script-colector-de-eventos-mcafee-mvision-epo-cloud
+image:
+   path: header/script_mvision.webp
+   lqip: data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAACQAwCdASoUAAsAPzmGulOvKKWisAgB4CcJZQAAW+uEaDUmTEAAAP66ezUrPdzaOMM9nLrHSCwAAA==
+   
+published: true
 ---
 
 ¡Hola compañeros!
 
 En esta entrada os quiero enseñar uno de mis primeros scripts en Python3 para extraer los eventos de la solución **McAfee Mvision ePO Cloud**.
 
-## Colector de eventos McAfee Mvision ePO Cloud
+# Colector de eventos McAfee Mvision ePO Cloud
+
+## Descripción de Script
 
 Trabajando como analistas o en ámbitos dedicados a blueteam,  en algunas situaciones nos vemos en la necesidad de tener que extraer los eventos de las soluciones que gestionamos y añadirlos al **SIEM** que tengamos para poder realizar la integración, correlación y generación de alertas según umbrales, etc, y de esta forma aportar mayor proactividad al entorno ante situaciones de seguridad.
 
 En este caso, el script ha sido desarrollado para poder extraer los eventos según el cliente que configuremos, permitiéndonos configuraciones individuales de extración de eventos de la solución Cloud.
 
-El script se encuentra en mi Github, os lo dejo por aquí:
-
-> Github - Mvision\_ePO\_Collector
-> 
-> [https://github.com/rekkatz/Mvision\_ePO\_Collector](https://github.com/rekkatz/Mvision_ePO_Collector)
+>El script se encuentra en mi Github, os lo dejo por aquí:
+>
+><https://github.com/rekkatz/Mvision_ePO_Collector>
 
 Antes de empezar, hay que modificar la variable "_**self.path**_" del archivo "_**Mvision\_epo.py**_" con la ruta donde se encuentre el directorio del script.
 
@@ -43,15 +37,15 @@ Este script consta de varios archivos y directorios que pasaré a detallar:
 - _**Directorio CONF**_: En este directorio se encuentran los archivos de configuración de los clientes, creados a partir del setup.py. Se crea una vez finalizado el setup.py
 - _**Archivo CONF**_: Este archivo contiene las credenciales de autenticación, el client\_ID de Mvision, marca de tiempo para control de eventos, numero de eventos extraídos hasta la fecha, etc.
 
-### 1 - Ejecución de Setup.py
+## Ejecución de Setup.py
 
 En primer lugar como he comentado, ejecutamos el archivo "setup.py" para configurar el cliente, nos irá pidiendo los datos uno a uno:
 
-![](images/post9-image1-1024x439.png)
+![](body/post9-image1.png)
 
 Una vez configurado el cliente, pasamos a mostrar el archivo creado, en este caso "**_Prueba1.cfg_**":
 
-![](images/post9-image2-1024x183.png)
+![](body/post9-image2.png)
 
 - **client**: Nombre de cliente configurado
 - **client\_ID**: Este es el identificador de cliente, lo podemos obtener a través del siguiente enlace una vez estemos logueados: https://auth.ui.mcafee.com/support.html. Se codifica en base64.
@@ -62,23 +56,23 @@ Una vez configurado el cliente, pasamos a mostrar el archivo creado, en este cas
 - **state**: Contador del cual nos permite identificar los eventos con un campo numérico (numevent).
 - **last\_since**: Control de tiempo para poder extraer los eventos desde la ultima ejecución, evitando tener que extraer todos cada vez que se ejecuta.
 
-### 2 - Ejecución de Mvision\_epo.py
+## Ejecución de Mvision\_epo.py
 
 Como segundo paso, se debe ejecutar el script "_**Mvision\_epo.py**_" con el argumento cliente, como se muestra en la siguiente imagen:
 
-![](images/post9-image3-1024x104.png)
+![](body/post9-image3.png)
 
 Nos indica que el script se ha ejecutado correctamente y los eventos han sido recolectados.
 
 Ahora si echamos un ojo al archivo "CFG" del cliente en cuestión, veremos que la variable state y last\_since, han sido definidas con otros valores.
 
-### 3 - Revisión de Logs
+## Revisión de Logs
 
 Una vez se haya ejecutado el script anterior, pasamos a visualizar los eventos recolectados. En este caso voy a mostrar una parte de los logs, ya que no he podido crear un tenant de prueba para la solución:
 
-![](images/post9-image4-1024x253.png)
+![](body/post9-image4.png)
 
-### Opcional - Automatización con CRON
+## Opcional - Automatización CRON
 
 Como estaréis pensando, este script sería conveniente que se fuese ejecutando cada X tiempo para ir recolectandos los eventos que van sucediendo en la solución. Acordarse que en la ejecución del archivo, este debe tener el argumento "cliente" para que se ejecute con el archivo "CFG" en cuestión.
 
