@@ -1,26 +1,45 @@
-# Bundler cache
-.bundle
-vendor
+# ───────────────────────────────────────────
+# ░░░░ Bundler y Ruby
+# ───────────────────────────────────────────
+.bundle/
+vendor/
 Gemfile.lock
-
-# Jekyll cache
-.jekyll-cache
-.jekyll-metadata
-_site
-
-# RubyGems
 *.gem
 
-# NPM dependencies
-node_modules
+# ───────────────────────────────────────────
+# ░░░░ Jekyll y salida del sitio
+# ───────────────────────────────────────────
+.jekyll-cache/
+.jekyll-metadata
+_site/
+
+# ───────────────────────────────────────────
+# ░░░░ Node.js / NPM
+# ───────────────────────────────────────────
+node_modules/
 package-lock.json
 
-# IDE configurations
-.idea
-.vscode
+# ───────────────────────────────────────────
+# ░░░░ Configuración de IDEs
+# ───────────────────────────────────────────
+.idea/
+.vscode/
 !.vscode/settings.json
 !.vscode/extensions.json
 
-# Misc
-_sass/dist
-assets/js/dist
+# ───────────────────────────────────────────
+# ░░░░ Archivos generados y temporales
+# ───────────────────────────────────────────
+*.log
+*.swp
+*.bak
+*.tmp
+.DS_Store
+Thumbs.db
+
+# ───────────────────────────────────────────
+# ░░░░ Archivos y carpetas específicas del sitio
+# ───────────────────────────────────────────
+_sass/dist/
+assets/js/dist/
+_posts/.plantilla_post.md
