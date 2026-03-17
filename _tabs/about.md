@@ -1,28 +1,31 @@
 ---
 # the default layout is 'page'
 title: "Whoami"
-date: "2021-04-15"
+date: "2026-03-17"
 icon: fas fa-info-circle
 order: 4
 ---
 
-> Add Markdown syntax content to file `_tabs/about.md`{: .filepath } and it will show up on this page.
-{: .prompt-tip }
-<!---
-[//]: #
-![](https://bypasseados.com/wp-content/uploads/2021/04/Perfil-RSS-Cropped.jpg)
+Soy **Cristian Rebollo**, consultor SIEM especializado en Splunk, con experiencia en integraciones, parsing de datos y desarrollo de detecciones de seguridad.
 
-Mi nombre es Cristian Rebollo y me dedico al campo de la Ciberseguridad.
+Certificado como *Splunk Enterprise Certified Admin*.
 
-Empecé en el año 2017 iniciándome como Operador SOC en la rama defensiva (Blue-Team), en la cual poco a poco fuí adquiriendo los conocimientos necesarios para empezar a comprender este mundo y crecer de manera profesional y personalmente.
+Trabajo principalmente en entornos de monitorización y ciberseguridad, donde diseño y mantengo soluciones SIEM orientadas a la detección y análisis de eventos.
 
-Actualmente ocupo el puesto de Ingeniero de Seguridad TI para una marca de suites de seguridad reconocida en el sector, ayudando en la administración y gestión de los productos de los clientes.
+Participo en la gestión end-to-end de proyectos de integración de fuentes, coordinando con equipos de sistemas, redes y otras áreas para habilitar la ingesta de datos mediante diferentes mecanismos (forwarders, syslog/rsyslog, APIs o scripting), desde la fase inicial hasta su puesta en producción.
 
-Aúnque como podéis ver mi día a día está enfocado en la rama defensiva (Blue-Team), mi hobby se encuentra en la rama ofensiva (Red-Team), en la cual dedico mi tiempo libre para nutrirme de toda la información posible y ampliar conocimientos y/o habilidades.
+Mi enfoque está orientado a la ingeniería SIEM, desde la ingestión de datos hasta la generación de detecciones y casos de uso de seguridad.
 
-Fué en 2018 cuando me registré en los laboratorios de pentesting de la plataforma HackTheBox y comencé a a entrenar mis habilidades de Hacking-Ético, adquiriendo metodologías y buenas prácticas a la hora de realizar un ejercicio de Pentest. En este blog, intento compartir los desafíos y máquinas que he realizado en plataformas CTF.
+Además, complemento este trabajo con la experimentación en laboratorio y entornos controlados, utilizando herramientas como Cribl, syslog/rsyslog, APIs, scripting en Python y Bash entre otros para la automatización y tratamiento de datos.
 
-Por último y no menos importante, la razón de este blog no es más que un lugar donde almacenar pensamientos e ideas, un lugar donde poder escribir, comprender y compartir con todos vosotros lo que voy aprendiendo diariamente y que espero pueda servir de ayuda a quien pase por este pequeño rincón.
+De forma puntual, también realizo retos técnicos en plataformas como Hack The Box, TryHackMe o entornos DFIR como CyberDefenders, lo que me permite seguir practicando y reforzando conocimientos desde una perspectiva más ofensiva y de análisis.
 
-[![Hack The Box](http://www.hackthebox.eu/badge/image/47369)](https://www.hackthebox.eu/index.php/profile/47369)
---->
+En este blog comparto conocimiento práctico sobre:
+
+- Splunk (arquitectura, ingestión, parsing, detección)
+- Ingeniería SIEM
+- Automatización y seguridad (SOAR, N8N, IA aplicada)
+
+El objetivo no es repetir documentación oficial, sino aportar una visión real basada en experiencia en entornos productivos.
+
+Si trabajas con Splunk o estás empezando en SIEM, este contenido está pensado para ayudarte a entender cómo funciona realmente en entornos reales.
