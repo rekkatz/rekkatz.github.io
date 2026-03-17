@@ -50,6 +50,8 @@ Dicho de otra forma:
 
 Aunque aquí lo vemos de forma simple, este pipeline es uno de los puntos más importantes de Splunk. Si alguna de estas fases falla o está mal configurada, los datos no se interpretan correctamente y eso, en un entorno SIEM, puede traducirse directamente en problemas de detección.
 
+En este proceso, Splunk combina operaciones en tiempo de indexación (*index-time*) y en tiempo de búsqueda (*search-time*), algo clave para entender cómo se estructuran los datos posteriormente.
+
 ---
 
 ## ¿Es Splunk directamente un SIEM?
@@ -87,6 +89,8 @@ Enterprise Security incorpora funcionalidades específicas de seguridad como:
 Gracias a esto, Splunk pasa de ser una plataforma de análisis a convertirse en un SIEM completo, capaz de detectar, correlacionar y priorizar amenazas.
 
 Esto es importante entenderlo bien, porque en entornos reales muchas veces no estás trabajando solo con Splunk, sino con Splunk + ES.
+
+En muchos entornos reales, el valor de Splunk ES no está solo en las funcionalidades, sino en el contenido predefinido (detecciones, dashboards y modelos de datos), que reduce enormemente el tiempo de despliegue de un SIEM.
 
 ---
 
@@ -129,6 +133,8 @@ Una arquitectura típica de Splunk suele estar distribuida en varios componentes
 - Search Heads: desde donde se realizan las búsquedas
 
 Esta separación permite escalar la plataforma y gestionar grandes volúmenes de datos de forma eficiente.
+
+En entornos de producción, esta arquitectura suele evolucionar hacia despliegues distribuidos con clustering de indexers y search heads para garantizar escalabilidad y alta disponibilidad.
 
 En los ejemplos de este blog trabajaremos inicialmente con una instalación sencilla tipo "all-in-one", pero es importante tener en mente cómo funciona una arquitectura real desde el principio.
 
