@@ -229,3 +229,5 @@ Con esta instalación ya tienes un entorno funcional sobre el que empezar a trab
 En los siguientes artículos iremos avanzando sobre esta base, entrando en aspectos clave dentro de un SIEM como la ingestión de datos, configuración de inputs, parsing, normalización y construcción de detecciones.
 
 La idea no es solo aprender a usar Splunk, sino entender cómo se comporta en escenarios reales y cómo construir sobre él una plataforma útil de seguridad.
+
+Gracias por llegar hasta aquí. Espero que te haya resultado útil. Seguimos.

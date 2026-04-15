@@ -241,4 +241,4 @@ A partir de aquí es donde empieza lo interesante: entender cómo se procesan es
 
 En los próximos artículos iremos entrando en más detalle, tanto a nivel de parsing como de operación diaria en Splunk. Veremos también comandos útiles desde CLI para validar configuraciones, comprobar estados y trabajar de forma más ágil en entornos reales.
 
-El siguiente paso será uno de los puntos más importantes dentro de Splunk: el parsing de datos.
+Gracias por llegar hasta aquí. Espero que te haya resultado útil. Seguimos.

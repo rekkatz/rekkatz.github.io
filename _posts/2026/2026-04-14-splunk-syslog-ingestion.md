@@ -225,4 +225,4 @@ Son configuraciones con las que me he ido encontrando **en el día a día como i
 
 Entender este flujo y por qué se monta así ayuda mucho más que simplemente saber configurarlo.
 
-En el siguiente artículo entraremos en cómo Splunk procesa estos datos una vez llegan al sistema, que es donde realmente empieza a tener sentido todo lo anterior.
+Gracias por llegar hasta aquí. Espero que te haya resultado útil. Seguimos.

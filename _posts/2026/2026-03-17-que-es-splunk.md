@@ -161,3 +161,6 @@ Puedes encontrar más información útil aquí:
 
 - 🌐 [Página oficial de Splunk](https://www.splunk.com)  
 - 🧠 [Comunidad de Splunk](https://community.splunk.com/)
+
+
+Gracias por llegar hasta aquí. Espero que te haya resultado útil. Seguimos.
