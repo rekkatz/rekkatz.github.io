@@ -10,7 +10,7 @@
 
 Bypasseados es un blog centrado en **Splunk**, **integraciones SIEM** y **ciberseguridad defensiva**, con un enfoque práctico basado en experiencia real en entornos corporativos.
 
-👉 https://rekkatz.github.io
+👉 https://bypasseados.com
 
 ---
 
