@@ -1,61 +1,85 @@
-# Chirpy Starter
+# Bypasseados | Splunk, SIEM & Blue Team
 
-[![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy)][gem]&nbsp;
-[![GitHub license](https://img.shields.io/github/license/cotes2020/chirpy-starter.svg?color=blue)][mit]
+![Status](https://img.shields.io/badge/status-active-success)
+![Built with Jekyll](https://img.shields.io/badge/jekyll-chirpy-blue)
+![Focus](https://img.shields.io/badge/focus-SIEM%20%7C%20Splunk-informational)
 
-When installing the [**Chirpy**][chirpy] theme through [RubyGems.org][gem], Jekyll can only read files in the folders
-`_data`, `_layouts`, `_includes`, `_sass` and `assets`, as well as a small part of options of the `_config.yml` file
-from the theme's gem. If you have ever installed this theme gem, you can use the command
-`bundle info --path jekyll-theme-chirpy` to locate these files.
+---
 
-The Jekyll team claims that this is to leave the ball in the user’s court, but this also results in users not being
-able to enjoy the out-of-the-box experience when using feature-rich themes.
+## 🧠 Blog técnico de Splunk en entornos reales
 
-To fully use all the features of **Chirpy**, you need to copy the other critical files from the theme's gem to your
-Jekyll site. The following is a list of targets:
+Bypasseados es un blog centrado en **Splunk**, **integraciones SIEM** y **ciberseguridad defensiva**, con un enfoque práctico basado en experiencia real en entornos corporativos.
 
-```shell
-.
-├── _config.yml
-├── _plugins
-├── _tabs
-└── index.html
-```
+👉 https://rekkatz.github.io
 
-To save you time, and also in case you lose some files while copying, we extract those files/configurations of the
-latest version of the **Chirpy** theme and the [CD][CD] workflow to here, so that you can start writing in minutes.
+---
 
-## Prerequisites
 
-Follow the instructions in the [Jekyll Docs](https://jekyllrb.com/docs/installation/) to complete the installation of
-the basic environment. [Git](https://git-scm.com/) also needs to be installed.
+## 📚 Artículos destacados
 
-## Installation
+- 🔹 [Introducción a Splunk](https://rekkatz.github.io/posts/introduccion-splunk/)
+- 🔹 [Instalación de Splunk en Linux](https://rekkatz.github.io/posts/instalacion-splunk-linux/)
+- 🔹 [Universal Forwarder: envío de logs](https://rekkatz.github.io/posts/universal-forwarder-splunk/)
+- 🔹 [Syslog Ingestion: gestión en entornos reales](https://rekkatz.github.io/posts/splunk-syslog-ingestion/)
 
-Sign in to GitHub and [**use this template**][use-template] to generate a brand new repository and name it
-`USERNAME.github.io`, where `USERNAME` represents your GitHub username.
+> Contenido basado en laboratorio propio y experiencia en entornos reales.
 
-Then clone it to your local machine and run:
+---
 
-```console
-$ bundle
-```
+## 🎯 Enfoque técnico
 
-## Usage
+El contenido sigue el flujo real de un SIEM:
 
-Please see the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy#documentation).
+- Ingestión de datos (Universal Forwarder, Syslog, APIs)
+- Parsing (`props.conf`, `transforms.conf`)
+- Normalización de eventos
+- Arquitectura distribuida (UF, HF, Indexers, Search Head)
+- Detección y análisis de seguridad
 
-## Contributing
+---
 
-The contents of this repository are automatically updated when new releases are made to the [main repository][chirpy].  
-If you have problems using it, or would like to participate in improving it, please go to the main repository for feedback!
+## 🛠️ Stack técnico
 
-## License
+- Splunk Enterprise / Splunk Cloud
+- Syslog / Rsyslog
+- Linux (Debian)
+- Python & Bash
+- GitHub Pages + Jekyll (Chirpy)
 
-This work is published under [MIT][mit] License.
+---
 
-[gem]: https://rubygems.org/gems/jekyll-theme-chirpy
-[chirpy]: https://github.com/cotes2020/jekyll-theme-chirpy/
-[use-template]: https://github.com/cotes2020/chirpy-starter/generate
-[CD]: https://en.wikipedia.org/wiki/Continuous_deployment
-[mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
+## 👨‍💻 Perfil profesional
+
+Consultor SIEM especializado en Splunk, con experiencia en:
+
+- Integración de fuentes de datos
+- Parsing y normalización de logs
+- Desarrollo de detecciones de seguridad
+- Arquitecturas SIEM en entornos corporativos
+- Coordinación con equipos de sistemas y redes
+
+---
+
+## 📈 Objetivo del proyecto
+
+Construir contenido útil y aplicable para:
+
+- Aprender Splunk desde cero
+- Entender cómo funciona en entornos reales
+- Mejorar habilidades en Blue Team / SOC
+
+---
+
+## 🤝 Feedback
+
+Cualquier feedback es bienvenido:
+
+- Ideas de contenido
+- Correcciones técnicas
+- Experiencia en entornos similares
+
+---
+
+## 📄 Licencia
+
+Contenido con fines educativos y divulgativos.
