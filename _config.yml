@@ -15,11 +15,11 @@ timezone: Europe/Madrid
 # ↓ --------------------------
 
 title: Bypasseados # the main title
-tagline: "Splunk Enterprise Certified Admin" # it will display as the sub-title
+tagline: "SIEM, Splunk y seguridad en entornos reales" # it will display as the sub-title
 
 
 description: >- # used by seo meta and the atom feed
-  Blog personal de Cristian Rebollo Castillo. Artículos sobre la solución de Splunk y mas soluciones relativas a integraciones de fuentes en SIEM.
+  Integración de fuentes, parsing, normalización y detección sobre Splunk en escenarios reales.
 
 # Fill in the protocol & hostname for your site.
 # e.g. 'https://username.github.io', note that it does not end with a '/'.
