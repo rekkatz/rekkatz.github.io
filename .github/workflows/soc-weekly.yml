@@ -1,31 +1,62 @@
 name: SOC Weekly
 
 on:
+  push:
+    branches:
+      - agent/soc-weekly-automation
+    paths:
+      - ".github/workflows/soc-weekly.yml"
+      - "tools/soc-weekly/**"
   workflow_dispatch:
-    inputs:
-      days:
-        description: "Número de días a analizar"
-        required: false
-        default: "7"
 
 permissions:
   contents: read
 
 concurrency:
-  group: soc-weekly
-  cancel-in-progress: false
+  group: soc-weekly-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  validate-workflow:
-    name: Validar configuración SOC Weekly
+  validate-generator:
+    name: Generar edición de prueba
     runs-on: ubuntu-latest
 
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v4
 
-      - name: Mostrar estado del proyecto
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Ejecutar generador
         run: |
-          echo "SOC Weekly está configurado correctamente."
-          echo "El generador de artículos y portadas todavía no está habilitado."
-          echo "Días solicitados: ${{ inputs.days || '7' }}"
+          rm -rf /tmp/soc-weekly-output
+          python tools/soc-weekly/generate.py \
+            --input tools/soc-weekly/examples/2026-07-12.json \
+            --output-root /tmp/soc-weekly-output
+
+      - name: Validar resultados
+        run: |
+          ARTICLE="/tmp/soc-weekly-output/_posts/2026/2026-07-13-soc-weekly-01.md"
+          COVER="/tmp/soc-weekly-output/assets/img/posts/2026-07-13-soc-weekly-01/header/card_soc_weekly_01.svg"
+
+          test -s "$ARTICLE"
+          test -s "$COVER"
+          grep -q 'published: false' "$ARTICLE"
+          grep -q 'SOC Weekly #1' "$ARTICLE"
+          grep -q 'EDICIÓN #01' "$COVER"
+
+          if grep -R '{{' /tmp/soc-weekly-output; then
+            echo "Se han encontrado variables de plantilla sin resolver."
+            exit 1
+          fi
+
+      - name: Empaquetar resultado de prueba
+        uses: actions/upload-artifact@v4
+        with:
+          name: soc-weekly-01-preview
+          path: /tmp/soc-weekly-output
+          if-no-files-found: error
+          retention-days: 7
