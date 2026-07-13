@@ -1,23 +1,31 @@
 name: SOC Weekly
 
 on:
-  schedule:
-    # Domingos a las 18:15 UTC. En España se ejecutará a las 19:15 o 20:15 según horario estacional.
-    - cron: "15 18 * * 0"
   workflow_dispatch:
     inputs:
       days:
         description: "Número de días a analizar"
         required: false
         default: "7"
-      publish:
-        description: "Publicar directamente en lugar de crear borrador"
-        required: false
-        type: boolean
-        default: false
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 concurrency:
+  group: soc-weekly
+  cancel-in-progress: false
+
+jobs:
+  validate-workflow:
+    name: Validar configuración SOC Weekly
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Mostrar estado del proyecto
+        run: |
+          echo "SOC Weekly está configurado correctamente."
+          echo "El generador de artículos y portadas todavía no está habilitado."
+          echo "Días solicitados: ${{ inputs.days || '7' }}"
