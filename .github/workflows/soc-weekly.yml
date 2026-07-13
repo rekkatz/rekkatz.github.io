@@ -1,0 +1,23 @@
+name: SOC Weekly
+
+on:
+  schedule:
+    # Domingos a las 18:15 UTC. En España se ejecutará a las 19:15 o 20:15 según horario estacional.
+    - cron: "15 18 * * 0"
+  workflow_dispatch:
+    inputs:
+      days:
+        description: "Número de días a analizar"
+        required: false
+        default: "7"
+      publish:
+        description: "Publicar directamente en lugar de crear borrador"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
