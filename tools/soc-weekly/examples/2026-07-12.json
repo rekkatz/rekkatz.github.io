@@ -1,0 +1,198 @@
+{
+  "edition": 1,
+  "publication_date": "2026-07-13",
+  "period": "6–12 de julio de 2026",
+  "executive_summary": "Durante el periodo analizado destacan varias vulnerabilidades con explotación activa que afectan a servidores web, extensiones Joomla y plataformas empresariales. La prioridad operativa no debe limitarse al parcheo: cuando existe explotación confirmada, también es necesario revisar indicios de compromiso, archivos creados recientemente, cuentas administrativas y procesos iniciados desde servicios expuestos.",
+  "vulnerabilities": [
+    {
+      "cve": "CVE-2026-48282",
+      "product": "Adobe ColdFusion",
+      "priority": "Crítica",
+      "severity": "CVSS 10.0",
+      "exploited": true,
+      "kev": true,
+      "rce": true,
+      "summary": "Una vulnerabilidad de traversal de rutas en componentes de ColdFusion puede permitir el acceso a archivos y desembocar en ejecución remota de código sobre el servidor afectado.",
+      "impact": [
+        "Lectura o modificación de archivos del servidor.",
+        "Instalación de web shells y ejecución de comandos.",
+        "Acceso a configuraciones, credenciales y servicios internos."
+      ],
+      "mitigations": [
+        "Aplicar la actualización publicada por Adobe.",
+        "Restringir la exposición de las interfaces administrativas y RDS.",
+        "Revisar archivos creados o modificados recientemente.",
+        "Rotar credenciales si existen indicios de compromiso."
+      ],
+      "splunk_detection": {
+        "description": "Como punto de partida, puede revisarse el acceso a rutas relacionadas con RDS y patrones de traversal:",
+        "query": "index=web (\"RDS\" OR \"FILEIO\" OR \"../\" OR \"%2e%2e\")\n| stats count values(uri_path) values(status) by src_ip, dest\n| where count > 2"
+      },
+      "mitre": [
+        {"id": "T1190", "name": "Exploit Public-Facing Application"},
+        {"id": "T1505.003", "name": "Web Shell"}
+      ]
+    },
+    {
+      "cve": "CVE-2026-56291",
+      "product": "Balbooa Forms para Joomla",
+      "priority": "Crítica",
+      "severity": "CVSS 10.0",
+      "exploited": true,
+      "kev": true,
+      "rce": true,
+      "summary": "La extensión permite la subida no autenticada de archivos ejecutables mediante formularios públicos, lo que puede terminar en ejecución remota de código.",
+      "impact": [
+        "Carga de archivos PHP y creación de web shells.",
+        "Control completo del sitio Joomla.",
+        "Acceso a la configuración y a credenciales de base de datos."
+      ],
+      "mitigations": [
+        "Actualizar a la versión corregida del fabricante.",
+        "Deshabilitar temporalmente la extensión si no puede actualizarse.",
+        "Buscar archivos PHP en directorios de subida, media e imágenes.",
+        "Auditar nuevas cuentas administradoras."
+      ],
+      "splunk_detection": {
+        "description": "Puede revisarse la actividad POST contra el componente y la aparición de cargas sospechosas:",
+        "query": "index=web http_method=POST (uri_query=\"*option=com_baforms*\" OR uri_path=\"*com_baforms*\")\n| stats count values(uri_path) values(status) by src_ip, dest"
+      },
+      "mitre": [
+        {"id": "T1190", "name": "Exploit Public-Facing Application"},
+        {"id": "T1105", "name": "Ingress Tool Transfer"}
+      ]
+    },
+    {
+      "cve": "CVE-2026-48939",
+      "product": "iCagenda para Joomla",
+      "priority": "Crítica",
+      "severity": "CVSS 10.0",
+      "exploited": true,
+      "kev": true,
+      "rce": true,
+      "summary": "La funcionalidad pública de adjuntos puede permitir la subida de archivos peligrosos y la ejecución posterior de código PHP.",
+      "impact": [
+        "Persistencia mediante web shell.",
+        "Modificación del contenido del sitio.",
+        "Acceso a datos y credenciales almacenados por Joomla."
+      ],
+      "mitigations": [
+        "Actualizar a la versión corregida.",
+        "Desactivar temporalmente el envío público de eventos.",
+        "Revisar los directorios de adjuntos y archivos temporales."
+      ],
+      "splunk_detection": {
+        "description": "La siguiente búsqueda permite localizar peticiones POST hacia rutas relacionadas con iCagenda:",
+        "query": "index=web http_method=POST (\"*icagenda*\" OR \"*com_icagenda*\")\n| stats count values(uri_path) values(status) by src_ip, dest"
+      },
+      "mitre": [
+        {"id": "T1190", "name": "Exploit Public-Facing Application"}
+      ]
+    },
+    {
+      "cve": "CVE-2026-48908",
+      "product": "SP Page Builder para Joomla",
+      "priority": "Crítica",
+      "severity": "CVSS 10.0",
+      "exploited": true,
+      "kev": true,
+      "rce": true,
+      "summary": "La vulnerabilidad permite subir y ejecutar archivos PHP sin autenticación. La explotación puede utilizarse para crear usuarios administradores y mantener persistencia.",
+      "impact": [
+        "Ejecución remota de código.",
+        "Creación de cuentas Super User.",
+        "Persistencia y modificación del CMS."
+      ],
+      "mitigations": [
+        "Actualizar a la versión corregida indicada por el fabricante.",
+        "Auditar todos los usuarios con privilegios administrativos.",
+        "Comparar los archivos del sitio con una instalación limpia."
+      ],
+      "splunk_detection": {
+        "description": "Puede vigilarse el endpoint de subida asociado al componente:",
+        "query": "index=web http_method=POST uri_query=\"*option=com_sppagebuilder*task=asset.uploadCustomIcon*\"\n| stats count values(status) values(user_agent) by src_ip, dest"
+      },
+      "mitre": [
+        {"id": "T1190", "name": "Exploit Public-Facing Application"},
+        {"id": "T1136", "name": "Create Account"}
+      ]
+    },
+    {
+      "cve": "CVE-2026-56290",
+      "product": "Page Builder CK para Joomla",
+      "priority": "Crítica",
+      "severity": "CVSS 10.0",
+      "exploited": true,
+      "kev": true,
+      "rce": true,
+      "summary": "Una subida arbitraria de archivos sin autenticación puede permitir la implantación de código PHP en directorios accesibles desde la web.",
+      "impact": [
+        "Creación de web shells.",
+        "Ejecución de comandos con los permisos del servidor web.",
+        "Persistencia dentro del sitio Joomla."
+      ],
+      "mitigations": [
+        "Actualizar a la versión corregida.",
+        "Buscar archivos PHP no inventariados dentro de media, images y templates.",
+        "Impedir la ejecución de PHP en directorios de carga."
+      ],
+      "splunk_detection": {
+        "description": "Una búsqueda inicial puede centrarse en accesos a PHP dentro de directorios destinados a contenido estático:",
+        "query": "index=web uri_path IN (\"*/media/*.php\",\"*/images/*.php\",\"*/templates/*.php\")\n| stats count min(_time) as first_seen max(_time) as last_seen values(src_ip) by dest, uri_path"
+      },
+      "mitre": [
+        {"id": "T1505.003", "name": "Web Shell"}
+      ]
+    },
+    {
+      "cve": "CVE-2026-55255",
+      "product": "Langflow",
+      "priority": "Alta",
+      "severity": "Alta",
+      "exploited": true,
+      "kev": true,
+      "rce": false,
+      "summary": "Un problema de control de acceso puede permitir que un usuario autenticado interactúe con flujos pertenecientes a otros usuarios y exponga secretos utilizados por la plataforma.",
+      "impact": [
+        "Exposición de claves de proveedores LLM.",
+        "Robo de credenciales cloud y secretos de bases de datos.",
+        "Uso de las credenciales comprometidas para acceder a otros servicios."
+      ],
+      "mitigations": [
+        "Actualizar a una versión corregida y soportada.",
+        "Restringir la exposición de la interfaz.",
+        "Rotar las claves y credenciales almacenadas en los flujos.",
+        "Revisar accesos cruzados a identificadores de flujo."
+      ],
+      "splunk_detection": {
+        "description": "Puede buscarse un número anómalo de identificadores de flujo consultados por el mismo usuario:",
+        "query": "index=web uri_path=\"/api/v1/responses*\" authenticated_user!=\"unknown\"\n| rex field=uri_query \"(?i)(?:flow_id|id)=(?<flow_id>[a-f0-9-]{8,})\"\n| stats dc(flow_id) as distinct_flows count by authenticated_user, dest\n| where distinct_flows > 5"
+      },
+      "mitre": [
+        {"id": "T1552", "name": "Unsecured Credentials"}
+      ]
+    }
+  ],
+  "splunk_detection_corner": "Esta semana la detección transversal más útil consiste en identificar procesos de sistema iniciados desde servicios web. Un ejemplo orientativo sería:\n\n```spl\nindex=edr parent_process_name IN (\"w3wp.exe\",\"httpd\",\"apache2\",\"nginx\",\"java\") process_name IN (\"cmd.exe\",\"powershell.exe\",\"sh\",\"bash\",\"curl\",\"wget\")\n| table _time host user parent_process_name process_name process_command_line\n```",
+  "soc_checklist": [
+    "Confirmar si ColdFusion, Joomla o Langflow forman parte del inventario.",
+    "Priorizar los sistemas expuestos directamente a Internet.",
+    "Buscar archivos PHP creados recientemente en directorios públicos.",
+    "Revisar nuevas cuentas administrativas y cambios de privilegios.",
+    "Analizar procesos hijos anómalos iniciados desde servicios web.",
+    "Comprobar conexiones salientes desde servidores potencialmente comprometidos."
+  ],
+  "administrator_recommendations": [
+    "Aplicar los parches disponibles y documentar las versiones finales.",
+    "No limitar la respuesta al parcheo cuando la explotación esté confirmada.",
+    "Rotar secretos accesibles desde los sistemas afectados.",
+    "Mantener monitorización reforzada después de la actualización.",
+    "Conservar evidencias antes de eliminar archivos sospechosos."
+  ],
+  "references": [
+    {"title": "CISA — Known Exploited Vulnerabilities Catalog", "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"},
+    {"title": "NVD — National Vulnerability Database", "url": "https://nvd.nist.gov/vuln"},
+    {"title": "MITRE ATT&CK", "url": "https://attack.mitre.org/"}
+  ],
+  "conclusion": "El patrón principal de esta edición vuelve a situar las aplicaciones expuestas a Internet como un punto crítico de entrada. En sistemas con explotación activa confirmada, actualizar es imprescindible, pero no suficiente: también debe realizarse una revisión retrospectiva de logs, cambios de archivos, cuentas privilegiadas y actividad de procesos para descartar que la intrusión se produjera antes del parcheo."
+}
