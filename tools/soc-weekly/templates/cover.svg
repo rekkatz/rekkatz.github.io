@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#090d18"/>
+      <stop offset="55%" stop-color="#151b2e"/>
+      <stop offset="100%" stop-color="#2c1640"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="80%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#7f3cff" stop-opacity="0.48"/>
+      <stop offset="100%" stop-color="#7f3cff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#background)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <g opacity="0.14" stroke="#ffffff" stroke-width="1">
+    <path d="M0 95 H1200"/>
+    <path d="M0 190 H1200"/>
+    <path d="M0 285 H1200"/>
+    <path d="M0 380 H1200"/>
+    <path d="M0 475 H1200"/>
+    <path d="M180 0 V630"/>
+    <path d="M360 0 V630"/>
+    <path d="M540 0 V630"/>
+    <path d="M720 0 V630"/>
+    <path d="M900 0 V630"/>
+    <path d="M1080 0 V630"/>
+  </g>
+
+  <rect x="72" y="72" width="1056" height="486" rx="28" fill="#0b1020" fill-opacity="0.72" stroke="#ffffff" stroke-opacity="0.14"/>
+
+  <text x="110" y="155" fill="#b9a7ff" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" letter-spacing="5">BYPASSEADOS</text>
+  <text x="110" y="280" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="800" letter-spacing="2">SOC WEEKLY</text>
+  <text x="110" y="350" fill="#d9def0" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="500">Threat Intelligence · SIEM · Splunk</text>
+
+  <rect x="110" y="402" width="410" height="82" rx="18" fill="#7f3cff" fill-opacity="0.18" stroke="#9b73ff" stroke-opacity="0.65"/>
+  <text x="140" y="454" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">EDICIÓN #{{ edition_padded }}</text>
+
+  <text x="110" y="525" fill="#aeb7d1" font-family="Arial, Helvetica, sans-serif" font-size="26">{{ period }}</text>
+
+  <g transform="translate(890 170)">
+    <circle cx="100" cy="100" r="92" fill="none" stroke="#a782ff" stroke-width="5" stroke-opacity="0.75"/>
+    <circle cx="100" cy="100" r="55" fill="none" stroke="#ffffff" stroke-width="3" stroke-opacity="0.42"/>
+    <path d="M100 26 L116 78 L170 84 L127 117 L140 170 L100 139 L60 170 L73 117 L30 84 L84 78 Z" fill="#8d5cff" fill-opacity="0.85"/>
+  </g>
+</svg>
