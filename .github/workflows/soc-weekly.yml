@@ -7,6 +7,12 @@ on:
     paths:
       - ".github/workflows/soc-weekly.yml"
       - "tools/soc-weekly/**"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/soc-weekly.yml"
+      - "tools/soc-weekly/**"
   workflow_dispatch:
 
 permissions:
