@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Generador inicial de SOC Weekly para el blog Bypasseados.
+"""Generador de SOC Weekly para el blog Bypasseados.
 
 Recibe una edición en JSON, rellena la plantilla Markdown y genera una portada
-SVG a partir de la plantilla maestra. No publica ni realiza llamadas externas.
+en SVG, PNG y WebP a partir de la plantilla maestra. No publica ni realiza
+llamadas externas.
 """
 
 from __future__ import annotations
@@ -12,6 +13,7 @@ import html
 import json
 import re
 import sys
+from io import BytesIO
 from pathlib import Path
 from typing import Any
 
@@ -19,6 +21,9 @@ ROOT = Path(__file__).resolve().parents[2]
 TOOL_DIR = Path(__file__).resolve().parent
 ARTICLE_TEMPLATE = TOOL_DIR / "templates" / "article.md"
 COVER_TEMPLATE = TOOL_DIR / "templates" / "cover.svg"
+COVER_WIDTH = 1200
+COVER_HEIGHT = 630
+WEBP_QUALITY = 88
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -73,7 +78,7 @@ def priority_table(vulnerabilities: list[dict[str, Any]]) -> str:
 
 
 def vulnerability_section(vuln: dict[str, Any], featured: bool = False) -> str:
-    heading = "###" if featured else "###"
+    heading = "###"
     parts = [
         f"{heading} {vuln['cve']} — {vuln['product']}",
         "",
@@ -119,12 +124,55 @@ def vulnerability_section(vuln: dict[str, Any], featured: bool = False) -> str:
 
 
 def references_section(references: list[dict[str, str]]) -> str:
-    return "\n".join(
-        f"- [{ref['title']}]({ref['url']})" for ref in references
-    )
+    return "\n".join(f"- [{ref['title']}]({ref['url']})" for ref in references)
 
 
-def generate(data: dict[str, Any], output_root: Path) -> tuple[Path, Path]:
+def render_cover_images(
+    cover_svg: str,
+    cover_dir: Path,
+    edition_padded: str,
+) -> tuple[Path, Path, Path]:
+    """Escribe la portada SVG y genera las versiones PNG y WebP."""
+
+    try:
+        import cairosvg
+        from PIL import Image
+    except ImportError as exc:
+        raise SystemExit(
+            "Faltan dependencias de imagen. Ejecuta: "
+            "pip install -r tools/soc-weekly/requirements.txt"
+        ) from exc
+
+    base_name = f"card_soc_weekly_{edition_padded}"
+    svg_path = cover_dir / f"{base_name}.svg"
+    png_path = cover_dir / f"{base_name}.png"
+    webp_path = cover_dir / f"{base_name}.webp"
+
+    cover_dir.mkdir(parents=True, exist_ok=True)
+    svg_path.write_text(cover_svg, encoding="utf-8")
+
+    try:
+        png_bytes = cairosvg.svg2png(
+            bytestring=cover_svg.encode("utf-8"),
+            output_width=COVER_WIDTH,
+            output_height=COVER_HEIGHT,
+        )
+        png_path.write_bytes(png_bytes)
+
+        with Image.open(BytesIO(png_bytes)) as image:
+            image.convert("RGB").save(
+                webp_path,
+                format="WEBP",
+                quality=WEBP_QUALITY,
+                method=6,
+            )
+    except Exception as exc:
+        raise SystemExit(f"No se pudieron generar PNG/WebP: {exc}") from exc
+
+    return svg_path, png_path, webp_path
+
+
+def generate(data: dict[str, Any], output_root: Path) -> tuple[Path, Path, Path, Path]:
     edition = int(require(data, "edition"))
     edition_padded = f"{edition:02d}"
     publication_date = str(require(data, "publication_date"))
@@ -179,13 +227,15 @@ def generate(data: dict[str, Any], output_root: Path) -> tuple[Path, Path]:
         "edition_padded": html.escape(edition_padded),
         "period": html.escape(period),
     }
-    cover = render(COVER_TEMPLATE.read_text(encoding="utf-8"), cover_values)
+    cover_svg = render(COVER_TEMPLATE.read_text(encoding="utf-8"), cover_values)
     cover_dir = output_root / "assets" / "img" / "posts" / media_directory / "header"
-    cover_path = cover_dir / f"card_soc_weekly_{edition_padded}.svg"
-    cover_dir.mkdir(parents=True, exist_ok=True)
-    cover_path.write_text(cover, encoding="utf-8")
+    svg_path, png_path, webp_path = render_cover_images(
+        cover_svg,
+        cover_dir,
+        edition_padded,
+    )
 
-    return post_path, cover_path
+    return post_path, svg_path, png_path, webp_path
 
 
 def parse_args() -> argparse.Namespace:
@@ -203,9 +253,14 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     data = load_json(args.input)
-    post_path, cover_path = generate(data, args.output_root.resolve())
+    post_path, svg_path, png_path, webp_path = generate(
+        data,
+        args.output_root.resolve(),
+    )
     print(f"Artículo generado: {post_path}")
-    print(f"Portada SVG generada: {cover_path}")
+    print(f"Portada SVG generada: {svg_path}")
+    print(f"Portada PNG generada: {png_path}")
+    print(f"Portada WebP generada: {webp_path}")
     print("Estado editorial: published=false")
     return 0
 
