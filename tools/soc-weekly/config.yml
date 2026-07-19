@@ -1,0 +1,30 @@
+series:
+  name: "SOC Weekly"
+  brand: "Bypasseados"
+  category_primary: "Threat Intelligence"
+  category_secondary: "Vulnerabilidades"
+  default_tags:
+    - CVE
+    - CISA KEV
+    - Splunk
+    - SIEM
+    - Detection Engineering
+    - Threat Intelligence
+    - SOC
+
+article:
+  published: false
+  max_vulnerabilities: 6
+  include_splunk_detection: true
+  include_mitre_attack: true
+  include_references: true
+
+cover:
+  width: 1200
+  height: 630
+  output_formats:
+    - png
+    - webp
+  fixed_title: "SOC WEEKLY"
+  fixed_subtitle: "Threat Intelligence · SIEM · Splunk"
+  media_root: "/assets/img/posts"

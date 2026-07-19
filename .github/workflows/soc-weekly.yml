@@ -1,0 +1,116 @@
+name: SOC Weekly
+
+on:
+  push:
+    branches:
+      - agent/soc-weekly-automation
+    paths:
+      - ".github/workflows/soc-weekly.yml"
+      - "tools/soc-weekly/**"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/soc-weekly.yml"
+      - "tools/soc-weekly/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: soc-weekly-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-generator:
+    name: Generar y compilar edición de prueba
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/soc-weekly/requirements.txt
+
+      - name: Instalar dependencias de imagen
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcairo2
+          python -m pip install --upgrade pip
+          python -m pip install -r tools/soc-weekly/requirements.txt
+
+      - name: Ejecutar generador
+        run: |
+          python tools/soc-weekly/generate.py \
+            --input tools/soc-weekly/examples/2026-07-12.json \
+            --output-root .
+
+      - name: Validar artículo y portadas
+        run: |
+          ARTICLE="_posts/2026/2026-07-13-soc-weekly-01.md"
+          COVER_DIR="assets/img/posts/2026-07-13-soc-weekly-01/header"
+          SVG="$COVER_DIR/card_soc_weekly_01.svg"
+          PNG="$COVER_DIR/card_soc_weekly_01.png"
+          WEBP="$COVER_DIR/card_soc_weekly_01.webp"
+
+          test -s "$ARTICLE"
+          test -s "$SVG"
+          test -s "$PNG"
+          test -s "$WEBP"
+          grep -q 'published: false' "$ARTICLE"
+          grep -q 'SOC Weekly #1' "$ARTICLE"
+          grep -q 'EDICIÓN #01' "$SVG"
+          grep -q 'path: header/card_soc_weekly_01.webp' "$ARTICLE"
+
+          if grep -n '{{' "$ARTICLE" "$SVG"; then
+            echo "Se han encontrado variables de plantilla sin resolver."
+            exit 1
+          fi
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+
+          cover_dir = Path("assets/img/posts/2026-07-13-soc-weekly-01/header")
+          expected = (1200, 630)
+
+          for filename, expected_format in (
+              ("card_soc_weekly_01.png", "PNG"),
+              ("card_soc_weekly_01.webp", "WEBP"),
+          ):
+              with Image.open(cover_dir / filename) as image:
+                  assert image.size == expected, (filename, image.size)
+                  assert image.format == expected_format, (filename, image.format)
+          PY
+
+      - name: Configurar Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Compilar Bypasseados con el borrador
+        run: bundle exec jekyll b --unpublished -d _site-soc-weekly
+        env:
+          JEKYLL_ENV: production
+
+      - name: Validar previsualización Jekyll
+        run: |
+          test -s "_site-soc-weekly/assets/img/posts/2026-07-13-soc-weekly-01/header/card_soc_weekly_01.webp"
+          grep -R -q 'SOC Weekly #1' _site-soc-weekly
+
+      - name: Empaquetar resultado de prueba
+        uses: actions/upload-artifact@v4
+        with:
+          name: soc-weekly-01-preview
+          path: |
+            _posts/2026/2026-07-13-soc-weekly-01.md
+            assets/img/posts/2026-07-13-soc-weekly-01/
+          if-no-files-found: error
+          retention-days: 7
